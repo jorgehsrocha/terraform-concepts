@@ -45,7 +45,7 @@ Representa a definição do identificador. A expressão é o valor do identifica
 
 
 **Exemplo de configuração do Terraform**
-```
+```terraform
 terraform {
   required_providers {
     aws = {
@@ -122,7 +122,7 @@ Desta forma, é possível realizar operações como:
 O Terraform consegue interpretar estrutura simplificada de Nested Objects. Dessa forma é possível simplificar escritas como:
 
 **De:**
-```
+```terraform
 {
   "resource": {
     "aws_instance": {
@@ -136,7 +136,7 @@ O Terraform consegue interpretar estrutura simplificada de Nested Objects. Dessa
 }
 ```
 **Para:**
-```
+```terraform
 resource "aws_instance" "example" {
   lifecycle {
     create_before_destroy = true
@@ -158,7 +158,7 @@ Representam objetos com definições das configurações da ingraestrutura. Cada
 
 A sintaxe para um block de resource:
 
-```
+```terraform
 resource "aws_istance" "example" {
 	provider = "aws.foo"
 }
@@ -181,7 +181,7 @@ Determina a configuração e premisas da infraestrtura a ser implementada. Os pr
 
 Declara os providers e os módulos que é utilizada.
 
-```
+```terraform
 terraform "required_providers" "my_cloud" {
 	source = 'mycorp/mycloud'
 	version = '~> 1.0'
@@ -202,7 +202,7 @@ terraform "required_providers" "mycorp-http" {
 
 Provê as configurações de provider para cada resource.
 
-```
+```terraform
 provider "aws" {
   region = "us-east-1"
 }
@@ -230,7 +230,7 @@ Variables são definições de valores as quais podem ser aplicadas aos resource
 
 As variables possuem “tipo”, "valor padrão” e descrição. Podem ser implementadas da seguinte forma:
 
-```
+```terraform
 variable "example" {
 	type = "string"
   default = "Hello"
@@ -246,7 +246,7 @@ Esses outputs são ids, endereços de rede, regras implatadas e etc. Os outputs 
 
 São implementados da seguinte forma:
 
-```
+```terraform
 resouce "aws_instace" "create" {
 	instance_type = "t2.micro"
 }
@@ -262,7 +262,7 @@ Representam valores locais que podem ser utilizados em outros blocos.
 
 São implementados da seguinte forma:
 
-```
+```terraform
 locals {
 	instance_name = "${var.instance_name}_aws_instance"
 }
@@ -277,7 +277,7 @@ resouce "aws_instace" "create" {
 
 Módulos são blocos compactados de configurações de resources. São utilizados para executar resources criados em outras partes da configuração de infraestrutura.
 
-```
+```terraform
 module "example" {
 	source = 'hashicorp/consul/azurecrm'
 	version = '1.0.0'
@@ -289,7 +289,7 @@ module "example" {
 
 Providers referem-se ao alias e versão da cloud que está sendo implementada pelo projeto.
 
-```
+```terraform
 provider "aws" {
 	region = 'us-east-1'
 }
@@ -298,7 +298,7 @@ provider "aws" {
 ### Terraform
 
 Refere-se a configuração e versão do terraform que está sendo utilizado no projeto, assim como o local onde o tfstate é armazenado e versionado.
-```
+```terraform
 terraform {
     required_version = ">=0.13.1"
     required_providers {
@@ -316,7 +316,7 @@ terraform {
 ## 7. Verificações customizadas de implantação
 Durante a implantação da infraestrutura é possível realizar verificações para confirmar se as configurações a ser implantadas seguem uma lista pré-determinada de condições.
 
-```
+```terraform
 resource "aws_instance" "example" {
   instance_type = "t2.micro"
   ami           = "ami-abc123"
@@ -336,7 +336,7 @@ Isso facilita o entendimento sobre recursos mínimos, ajudar futuros mantenedore
 Alguns recursos necessitam ter um prazo máximo de operação. Baseado nisso, o terraform permite definir, para cada bloco de recurso, o tempo máximo de execução para operações "create", "update" e "delete". 
 
 Veja como é aplicado:
-```
+```terraform
 resource "aws_db_instance" "example" {
   timeouts {
     create = "60m"
