@@ -1,0 +1,7 @@
+gcp_project_id="jorgehsrocha-console"
+gcp_region="us-central1"
+repo_name="repo_test"
+repo_url="https://github.com/jorgehsrocha/test.git"
+repo_provider="GITHUB"
+branch="master"
+gcp_account_id="jorgehsrocha-test-console"
